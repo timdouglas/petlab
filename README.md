@@ -45,13 +45,13 @@ As user I want to list and filter products
 WHEN I visit the product collection page
 THEN I expect to see filters sidebar
 AND I expect to see a table of products
-AND I expect to see "8" products in a table
+AND I expect to see "12" products in a table
 AND I expect to see products pagination
 
 WHEN I visit the product collection page
 THEN I expect to see filters sidebar for tags
 WHEN I search for "Dog" in filters sidebar
-THEN I expect to see 5 products in the resulting table
+THEN I expect to see 10 products in the resulting table
 
 WHEN I visit the product collection page
 THEN I expect to see filters sidebar
