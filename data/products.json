@@ -151,6 +151,21 @@
       "subscription": true
     },
     {
+      "id": 9,
+      "slug": "dog-paw-balm",
+      "title": "Palm Balm",
+      "vendor": "PetLab",
+      "tags": ["Chews", "Dog"],
+      "published": true,
+      "url": "https://thepetlabco.com/products/dog-paw-balm",
+      "image_src": "https://cdn.builder.io/api/v1/image/assets%2F08d8ed1927034a9791a787768e108aa6%2F1f0ef0c7cde74d1abeb8ae6af6bf0d08",
+      "option_value": "Value Pack",
+      "sku": "IRC4",
+      "price": 42.00,
+      "subscription_discount": "",
+      "subscription": false
+    },
+    {
       "id": 12,
       "slug": "clear-eyes-for-cats",
       "title": "Clear Eyes Cats",

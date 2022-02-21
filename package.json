@@ -12,8 +12,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "mock-server": "npx json-server data/products.json --port 3010",
-    "start": "yarn run mock-server & react-scripts start",
+    "mock-server": "json-server --watch data/products.json --port 3010",
+    "start": "npm run mock-server & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
