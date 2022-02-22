@@ -7,6 +7,9 @@ scalable front-end architecture, which is easy to use, and that pays attention t
 
 
 # Instructions & Deliverables
+Please be mindful this skill challenge will test not only your coding but also your communication skillsets. We are 
+proponents of planning and then execute, so please fill out the SOLUTION.md.
+
 1. Fork this repository to your account (https://help.github.com/articles/fork-a-repo/)
 2. Read these instructions carefully first before continuing with the practical test
 3. Read the Requirements / Story Definition and Conditions of Acceptance
@@ -18,7 +21,7 @@ scalable front-end architecture, which is easy to use, and that pays attention t
     - You may add/change/modify any files in the project
     - You may use Google or any other references for angular/bootstrap syntax
 6. Describe how you can build a better "Product" for this coding task in SOLUTION.md and include your estimates
-7. Create a pull request to origin repository when you are satisfied with your solution (https://help.github.com/articles/about-pull-requests/)
+7. When you are satisfied with your solution please submit a link to your own forked repo.
 
 # Other Notes
 
@@ -27,7 +30,8 @@ scalable front-end architecture, which is easy to use, and that pays attention t
 - Please time yourself so that you balance Quality and Delivery. There will be no deadline for this exercise, but you should instead estimate the task, complete the task, and measure your elapsed time. Please submit your estimate and actual time with your code solution
 - Solution should be fully working when we check out your code.
 - Please make sure any additional dependencies are added in package.json.
-- API docs are available [here](./API_DOCS.md)
+- We have not banned the use of third-party solutions, but make sure the majority of code represents you.
+- Make sure you utilise the API correctly, as if it was an external service. API docs are available [here](./API_DOCS.md)
 
 Requirements / Story Definitions
 ================================
