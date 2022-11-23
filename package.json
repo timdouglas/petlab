@@ -12,9 +12,13 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
   "scripts": {
-    "mock-server": "json-server --watch data/products.json --port 3010",
-    "start": "npm run mock-server & react-scripts start",
+    "start:server": "json-server --watch data/products.json --port 3010",
+    "start:app": "react-scripts start",
+    "start": "concurrently \"npm run start:server\" \"npm run start:app\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
