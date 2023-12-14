@@ -1,19 +1,16 @@
-SOLUTION
-========
+# SOLUTION
 
-Estimation
-----------
+## Estimation
+
 Estimated: 4 hours
 
 Spent: x hours
 
+## Solution
 
-Solution
---------
 Comments on your solution
 
-Journal
--------
+## Journal
 
 - 19:00
   Added 4 hour estimate, probably 2, but always double the estimate
@@ -25,3 +22,8 @@ Journal
 - 19:20
   Finished adding scenarios to the feature file, had to do a bit more curl to understand how the API filtering works.
   Next I'll set up the dev environment, add typescript and prettier etc
+
+  nb: had to use `npm i --legacy-peer-deps` to get typescript installed with react-scripts
+
+- 19:38
+  While waiting for things to install I'm thinking about the best way of hooking up the API to the app. I think redux toolkit query will be a good fit. It'll give us caching and store integration for the results, not to mention hooks to use with the filters.
