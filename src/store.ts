@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { productsApi } from '~/logic/slices/products';
+import { productsApi } from './logic/slices/products';
 
 const rootReducer = combineReducers({
   [productsApi.reducerPath]: productsApi.reducer,

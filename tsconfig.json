@@ -17,6 +17,6 @@
       "~/*": ["./src/*"]
     }
   },
-  "include": ["custom.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["custom.d.ts", "**/*.ts", "**/*.tsx", "src/index.js"],
   "exclude": ["node_modules"]
 }
