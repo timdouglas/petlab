@@ -8,7 +8,7 @@ Spent: x hours
 
 ## Solution
 
-Comments on your solution
+Opting to use redux toolkit query to fetch data from the API and display it in a MUI table with pagination.
 
 ## Journal
 
@@ -33,3 +33,13 @@ Comments on your solution
 
 - 19:58
   RTKQ set up
+
+- 20:01
+  Starting to think about how the page will look...sidebar + table. Because we have a state store, these can be completely isolated components. I'll start with the table.
+
+- 20:30
+  Added a MUI table with pagination and a dummy dataset. Time to hook it up to redux.
+
+- 20:54
+  Hooked up MUI table to API. Going to call it a night and pick it up again tomorrow.
+  Time so far: 2 hours
