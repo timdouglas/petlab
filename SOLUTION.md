@@ -3,7 +3,7 @@ SOLUTION
 
 Estimation
 ----------
-Estimated: n hours
+Estimated: 4 hours
 
 Spent: x hours
 
@@ -11,3 +11,17 @@ Spent: x hours
 Solution
 --------
 Comments on your solution
+
+Journal
+-------
+
+- 19:00
+  Added 4 hour estimate, probably 2, but always double the estimate
+  Ran npm install and start to check the dev server works, curl'd the API and all seems fine
+
+- 19:05
+  Going to add the gherkin scenarios for viewing and filtering products
+
+- 19:20
+  Finished adding scenarios to the feature file, had to do a bit more curl to understand how the API filtering works.
+  Next I'll set up the dev environment, add typescript and prettier etc
