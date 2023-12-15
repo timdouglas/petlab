@@ -24,7 +24,7 @@ import { selectFilters, selectFiltersEnabled } from '~/logic/slices/filters';
 
 const ProductTable = () => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);

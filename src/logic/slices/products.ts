@@ -26,9 +26,6 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query<Product[], void>({
       query: () => 'products',
-      // ensure we only see published products
-      transformResponse: (resp: Product[]) =>
-        resp.filter((product) => product.published),
     }),
   }),
 });
