@@ -18,6 +18,9 @@ import RowSkeleton from '~/components/product-table/skeleton';
 import ProductTablePagination from '~/components/product-table/pagination';
 import { useGetProductsQuery } from '~/logic/slices/products';
 import './product-table.css';
+import { applyFilter } from '~/logic/filters';
+import { useAppSelector } from '~/logic/hooks/store';
+import { selectFilters, selectFiltersEnabled } from '~/logic/slices/filters';
 
 const ProductTable = () => {
   const [page, setPage] = useState(0);
@@ -35,6 +38,13 @@ const ProductTable = () => {
   };
 
   const { isLoading, isFetching, isError, data, error } = useGetProductsQuery();
+  const filters = useAppSelector(selectFilters);
+  const filtersEnabled = useAppSelector(selectFiltersEnabled);
+
+  const filteredData = useMemo(
+    () => (filtersEnabled ? applyFilter(data || [], filters) : data || []),
+    [data, filters, filtersEnabled]
+  );
 
   // memoised function to handle table render state
   // if we are loading or have an error, show those states, otherwise render the product rows
@@ -48,14 +58,18 @@ const ProductTable = () => {
         return <ErrorRow error="An error occurred loading products" />;
       }
       case !data:
-      case data && data.length === 0:
+      case data?.length === 0:
+      case filteredData && filteredData.length === 0:
         return <ErrorRow error="No products found" variant="warning" />;
       default:
         return (
           <TableBody>
             {(rowsPerPage > 0
-              ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : data
+              ? filteredData.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : filteredData
             ).map((row) => (
               <TableRow
                 key={row.id}
@@ -99,7 +113,16 @@ const ProductTable = () => {
           </TableBody>
         );
     }
-  }, [data, error, isError, isFetching, isLoading, page, rowsPerPage]);
+  }, [
+    isLoading,
+    isFetching,
+    rowsPerPage,
+    isError,
+    error,
+    data,
+    filteredData,
+    page,
+  ]);
 
   return (
     <TableContainer component={Paper}>
@@ -118,7 +141,7 @@ const ProductTable = () => {
       <TablePagination
         component={Box}
         colSpan={3}
-        count={(data || []).length}
+        count={filteredData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

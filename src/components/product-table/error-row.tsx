@@ -1,4 +1,4 @@
-import { Alert, TableBody, TableRow } from '@mui/material';
+import { Alert, TableBody, TableCell, TableRow } from '@mui/material';
 
 const ErrorRow = ({
   error,
@@ -9,7 +9,9 @@ const ErrorRow = ({
 }) => (
   <TableBody>
     <TableRow>
-      <Alert severity={variant}>{error}</Alert>
+      <TableCell colSpan={5}>
+        <Alert severity={variant}>{error}</Alert>
+      </TableCell>
     </TableRow>
   </TableBody>
 );

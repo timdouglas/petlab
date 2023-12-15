@@ -73,3 +73,12 @@ Looking at the full size dataset, it's only 12 items, which means filtering on t
 
 - 11:25
   Added tags filter and basic sidebar styling
+
+- 11:48
+  Configured jest and added search filter logic
+
+- 11:55
+  Added tag filter logic
+
+- 12:04
+  Hooked filter logic up to product table
