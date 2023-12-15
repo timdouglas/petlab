@@ -7,15 +7,22 @@ import {
   TableCell,
   TableBody,
   TablePagination,
+  Box,
+  Chip,
+  Stack,
+  Avatar,
 } from '@mui/material';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import ErrorRow from '~/components/product-table/error-row';
+import RowSkeleton from '~/components/product-table/skeleton';
+import ProductTablePagination from '~/components/product-table/pagination';
 import { useGetProductsQuery } from '~/logic/slices/products';
+import './product-table.css';
 
 const ProductTable = () => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // TODO: add first & last page buttons
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -27,17 +34,72 @@ const ProductTable = () => {
     setPage(0);
   };
 
-  const { isLoading, isFetching, isError, data } = useGetProductsQuery();
+  const { isLoading, isFetching, isError, data, error } = useGetProductsQuery();
 
-  // TODO: add actual spinner
-  if (isLoading || isFetching) {
-    return <p>Loading spinner</p>;
-  }
-
-  // TODO: add error handling
-  if (isError || !data) {
-    return <p>Error</p>;
-  }
+  // memoised function to handle table render state
+  // if we are loading or have an error, show those states, otherwise render the product rows
+  const tableContent = useMemo(() => {
+    switch (true) {
+      case isLoading:
+      case isFetching:
+        return <RowSkeleton rowsPerPage={rowsPerPage} />;
+      case !!(isError && error): {
+        console.error(error);
+        return <ErrorRow error="An error occurred loading products" />;
+      }
+      case !data:
+      case data && data.length === 0:
+        return <ErrorRow error="No products found" variant="warning" />;
+      default:
+        return (
+          <TableBody>
+            {(rowsPerPage > 0
+              ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : data
+            ).map((row) => (
+              <TableRow
+                key={row.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{ alignItems: 'center' }}
+                  >
+                    <Avatar alt={row.title} src={row.image_src} />
+                    <Stack spacing={1}>
+                      <p className="productTitle">{row.title}</p>
+                      <p className="productOption">{row.option_value}</p>
+                    </Stack>
+                  </Stack>
+                </TableCell>
+                <TableCell>{row.vendor}</TableCell>
+                <TableCell>
+                  <Stack spacing={1} direction="row">
+                    {row.tags.map((tag, i) => (
+                      <Chip key={i} label={tag} />
+                    ))}
+                  </Stack>
+                </TableCell>
+                <TableCell align="right">{row.price}</TableCell>
+                <TableCell align="right">
+                  {/* TODO: create a function to handle this */}
+                  {row.subscription
+                    ? row.price -
+                      row.price *
+                        ((typeof row.subscription_discount === 'number'
+                          ? row.subscription_discount
+                          : 0) /
+                          100)
+                    : '-'}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        );
+    }
+  }, [data, error, isError, isFetching, isLoading, page, rowsPerPage]);
 
   return (
     <TableContainer component={Paper}>
@@ -51,41 +113,17 @@ const ProductTable = () => {
             <TableCell align="right">Subscription price</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : data
-          ).map((row) => (
-            <TableRow
-              key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell>{row.title /* TODO: add image etc here */}</TableCell>
-              <TableCell>{row.vendor}</TableCell>
-              <TableCell>{row.tags}</TableCell>
-              <TableCell align="right">{row.price}</TableCell>
-              <TableCell align="right">
-                {row.subscription
-                  ? row.price -
-                    row.price *
-                      ((typeof row.subscription_discount === 'number'
-                        ? row.subscription_discount
-                        : 0) /
-                        100)
-                  : '-'}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        {tableContent}
       </Table>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data.length}
+        component={Box}
+        colSpan={3}
+        count={(data || []).length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        ActionsComponent={ProductTablePagination}
       />
     </TableContainer>
   );
