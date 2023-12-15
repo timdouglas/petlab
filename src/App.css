@@ -17,4 +17,14 @@
 .content {
   height: calc(96vh - 4rem);
   padding: 1rem;
+  display: flex;
+}
+
+.filters {
+  flex: 1;
+}
+
+.products {
+  flex: 2;
+  min-width: 75vw;
 }

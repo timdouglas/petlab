@@ -10,6 +10,8 @@ Spent: x hours
 
 Opting to use redux toolkit query to fetch data from the API and display it in a MUI table with pagination.
 
+Looking at the full size dataset, it's only 12 items, which means filtering on the client-side will be quicker than utilising the API-level filters: "the fastest network request is the one you don't have to make". However if the dataset was much larger, creating API queries in RTKQ would be a good approach.
+
 ## Journal
 
 - 19:00
@@ -43,3 +45,31 @@ Opting to use redux toolkit query to fetch data from the API and display it in a
 - 20:54
   Hooked up MUI table to API. Going to call it a night and pick it up again tomorrow.
   Time so far: 2 hours
+
+- 10:00
+  Picking this back up - first task is to finish off loading & error states in the product table.
+  Will probably refactor rendering of the table to show states more effectively.
+
+- 10:06
+  Added skeleton loader
+
+- 10:15
+  Added error state and memoised row rendering
+  Fix CRA react 18 reactDOM usage
+
+- 10:20
+  Split pagination into own component
+  Time for a coffee...
+
+- 10:30
+  Time to start building filter state
+
+- 10:37
+  Added basic filter state. price defaults to -1, can probably improve that later
+
+- 10:48
+  Added query to get unique list of tags
+  Added scenario for tag search
+
+- 11:25
+  Added tags filter and basic sidebar styling

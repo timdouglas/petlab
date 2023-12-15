@@ -32,6 +32,7 @@ Feature: Product Page
     And The sidebar contains the following filters:
       | Filters      |
       | Search       |
+      | Tags         |
       | Price        |
       | Subscription |
 
@@ -44,6 +45,15 @@ Feature: Product Page
       | dog      | 11      |
       | cat      | 6       |
       | squirrel | 0       |
+
+  Scenario Outline: User can filter the product table by tag
+    Given The product table has loaded
+    When User selects "tag" on the tag filter
+    Then "results" rows are shown in the product table
+    Examples:
+      | search | results |
+      | Dog    | 11      |
+      | Cat    | 6       |
 
   Scenario Outline: User can filter the product table by price
     Given The product table has loaded

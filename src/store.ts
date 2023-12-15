@@ -1,7 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { productsApi } from './logic/slices/products';
+import { productsApi } from '~/logic/slices/products';
+import filters from '~/logic/slices/filters';
 
 const rootReducer = combineReducers({
+  filters,
   [productsApi.reducerPath]: productsApi.reducer,
 });
 
