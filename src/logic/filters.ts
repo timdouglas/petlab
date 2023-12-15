@@ -1,5 +1,6 @@
 import { FilterState } from '~/logic/slices/filters';
 import type { Product } from '~/logic/slices/products';
+import { roundDownToNearest, roundUpToNearest } from '~/logic/utils';
 
 export const applySearchFilter = (
   { title }: Product,
@@ -18,7 +19,8 @@ export const applyTagFilter = (
 };
 
 export const applyPriceFilter = ({ price }: Product, search: number) =>
-  price === search;
+  search <= roundUpToNearest(price, 5) &&
+  search >= roundDownToNearest(price, 5);
 
 export const applySubscriptionFilter = (
   { subscription }: Product,

@@ -19,7 +19,7 @@ describe('filters', () => {
       image_src: '1',
       option_value: '1',
       sku: '1',
-      price: 1,
+      price: 27.2,
       subscription: true,
       subscription_discount: 0,
     },
@@ -34,7 +34,7 @@ describe('filters', () => {
       image_src: '2',
       option_value: '2',
       sku: '2',
-      price: 2,
+      price: 20,
       subscription: false,
       subscription_discount: 0,
     },
@@ -82,8 +82,8 @@ describe('filters', () => {
   describe('applyPriceFilter', () => {
     const tests: Array<{ search: number; product: Product; result: boolean }> =
       [
-        { search: 1, product: products[0], result: true },
-        { search: 2, product: products[1], result: true },
+        { search: 30, product: products[0], result: true },
+        { search: 20, product: products[1], result: true },
         { search: 3, product: products[0], result: false },
       ];
 
