@@ -82,3 +82,35 @@ Looking at the full size dataset, it's only 12 items, which means filtering on t
 
 - 12:04
   Hooked filter logic up to product table
+
+- 12:13
+  Added filter components for price and subscription
+
+- 12:21
+  Hooked up (and tested) price & subscription filters
+
+- 12:23
+  Double checking the readme requirements, user expects to see 12 products, but I'm only showing 11 - is my published filter removing one?
+
+- 12:24
+  It is, removing filter and upping pagination default to view 12 on load
+
+- 12:27
+  "WHEN I filter by "Price" "30" in the sidebar THEN I expect to see 1 product in the resulting table" - currently returns 0 results; need to round the search filter function
+  Will get some lunch then take a look
+  Time so far: 4:15
+
+- 13:35
+  Lunched, time to add rounding to the price filter
+
+- 13:45
+  Added rounding functions and tests, modified price filter test to expect rounding
+
+- 13:50
+  Modified price filter to search within +-5 of given search price
+
+- 13:58
+  Added clear button to subscription filter
+
+- 14:03
+  Added function to apply subscription discount

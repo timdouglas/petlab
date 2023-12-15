@@ -37,7 +37,7 @@ export const filterSlice = createSlice({
     setPrice: (state, { payload }: PayloadAction<number>) => {
       state.price = payload;
     },
-    setSubscription: (state, { payload }: PayloadAction<boolean>) => {
+    setSubscription: (state, { payload }: PayloadAction<boolean | null>) => {
       state.subscription = payload;
     },
   },

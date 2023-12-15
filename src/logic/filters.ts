@@ -14,10 +14,12 @@ export const applyTagFilter = (
   { tags }: Product,
   search: string[]
 ): boolean => {
+  // use lowercase to make tags case insensitive
   const lcSearch = search.map((s) => s.toLowerCase());
   return tags.filter((tag) => lcSearch.includes(tag.toLowerCase())).length > 0;
 };
 
+// search for prices +-5 of given search number
 export const applyPriceFilter = ({ price }: Product, search: number) =>
   search <= roundUpToNearest(price, 5) &&
   search >= roundDownToNearest(price, 5);

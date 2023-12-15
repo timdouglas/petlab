@@ -1,4 +1,8 @@
-import { roundDownToNearest, roundUpToNearest } from '~/logic/utils';
+import {
+  roundDownToNearest,
+  roundToDecimal,
+  roundUpToNearest,
+} from '~/logic/utils';
 
 describe('roundUpToNearest', () => {
   it('rounds to the nearest configured factor for integer inputs', () => {
@@ -47,5 +51,21 @@ describe('roundDownToNearest', () => {
   it('handles zero inputs', () => {
     expect(roundDownToNearest(0, 1)).toBe(0);
     expect(roundDownToNearest(0.0, 5)).toBe(0);
+  });
+});
+
+describe('roundToDecimal', () => {
+  test('rounds to the specified decimal points for positive float inputs', () => {
+    expect(roundToDecimal(13.345, 2)).toBe(13.35);
+    expect(roundToDecimal(27.891, 1)).toBe(27.9);
+    expect(roundToDecimal(32.678, 0)).toBe(33);
+  });
+
+  test('handles zero for float inputs', () => {
+    expect(roundToDecimal(0.0, 3)).toBe(0);
+  });
+
+  test('handles values with multiple decimal points for float inputs', () => {
+    expect(roundToDecimal(123.456789, 4)).toBe(123.4568);
   });
 });

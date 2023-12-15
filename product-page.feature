@@ -42,8 +42,8 @@ Feature: Product Page
     Then "results" rows are shown in the product table
     Examples:
       | search   | results |
-      | dog      | 11      |
-      | cat      | 6       |
+      | chews    | 7       |
+      | dental   | 2       |
       | squirrel | 0       |
 
   Scenario Outline: User can filter the product table by tag
@@ -62,7 +62,7 @@ Feature: Product Page
     Examples:
       | search  | results |
       | 30      | 1       |
-      | 42.29   | 6       |
+      | 42.29   | 7       |
       | 9999999 | 0       |
 
   Scenario: User can filter the product table by subscription
@@ -73,5 +73,5 @@ Feature: Product Page
   Scenario: User can combine filters
     Given The product table has loaded
     When The user enables the subscription filter
-    And The user enters 'Cat' in the search filter
+    And The user selects 'Cat' in the tag filter
     Then 5 rows are shown in the product table

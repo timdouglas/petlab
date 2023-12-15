@@ -21,6 +21,7 @@ import './product-table.css';
 import { applyFilter } from '~/logic/filters';
 import { useAppSelector } from '~/logic/hooks/store';
 import { selectFilters, selectFiltersEnabled } from '~/logic/slices/filters';
+import { applyDiscount, roundToDecimal } from '~/logic/utils';
 
 const ProductTable = () => {
   const [page, setPage] = useState(0);
@@ -98,14 +99,8 @@ const ProductTable = () => {
                 </TableCell>
                 <TableCell align="right">{row.price}</TableCell>
                 <TableCell align="right">
-                  {/* TODO: create a function to handle this */}
                   {row.subscription
-                    ? row.price -
-                      row.price *
-                        ((typeof row.subscription_discount === 'number'
-                          ? row.subscription_discount
-                          : 0) /
-                          100)
+                    ? applyDiscount(row.price, row.subscription_discount || 0)
                     : '-'}
                 </TableCell>
               </TableRow>
