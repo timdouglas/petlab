@@ -8,22 +8,20 @@ import {
   TableBody,
   TablePagination,
   Box,
-  Chip,
-  Stack,
-  Avatar,
 } from '@mui/material';
 import { useMemo, useState } from 'react';
 import ErrorRow from '~/components/product-table/error-row';
 import RowSkeleton from '~/components/product-table/skeleton';
 import ProductTablePagination from '~/components/product-table/pagination';
-import { useGetProductsQuery } from '~/logic/slices/products';
+import { type Product, useGetProductsQuery } from '~/logic/slices/products';
 import './product-table.css';
 import { applyFilter } from '~/logic/filters';
 import { useAppSelector } from '~/logic/hooks/store';
 import { selectFilters, selectFiltersEnabled } from '~/logic/slices/filters';
-import { applyDiscount, roundToDecimal } from '~/logic/utils';
+import ProductRow from '~/components/product-table/product-row';
 
 const ProductTable = () => {
+  // pagination state and handlers
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
 
@@ -38,6 +36,7 @@ const ProductTable = () => {
     setPage(0);
   };
 
+  // fetch and filter data
   const { isLoading, isFetching, isError, data, error } = useGetProductsQuery();
   const filters = useAppSelector(selectFilters);
   const filtersEnabled = useAppSelector(selectFiltersEnabled);
@@ -71,39 +70,8 @@ const ProductTable = () => {
                   page * rowsPerPage + rowsPerPage
                 )
               : filteredData
-            ).map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{ alignItems: 'center' }}
-                  >
-                    <Avatar alt={row.title} src={row.image_src} />
-                    <Stack spacing={1}>
-                      <p className="productTitle">{row.title}</p>
-                      <p className="productOption">{row.option_value}</p>
-                    </Stack>
-                  </Stack>
-                </TableCell>
-                <TableCell>{row.vendor}</TableCell>
-                <TableCell>
-                  <Stack spacing={1} direction="row">
-                    {row.tags.map((tag, i) => (
-                      <Chip key={i} label={tag} />
-                    ))}
-                  </Stack>
-                </TableCell>
-                <TableCell align="right">{row.price}</TableCell>
-                <TableCell align="right">
-                  {row.subscription
-                    ? applyDiscount(row.price, row.subscription_discount || 0)
-                    : '-'}
-                </TableCell>
-              </TableRow>
+            ).map((row: Product) => (
+              <ProductRow product={row} key={row.id} />
             ))}
           </TableBody>
         );

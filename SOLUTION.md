@@ -4,13 +4,43 @@
 
 Estimated: 4 hours
 
-Spent: x hours
+Spent: 5 hours
 
 ## Solution
 
+Test cases are in ./product-page.feature
+
+### Architecture
+
 Opting to use redux toolkit query to fetch data from the API and display it in a MUI table with pagination.
 
-Looking at the full size dataset, it's only 12 items, which means filtering on the client-side will be quicker than utilising the API-level filters: "the fastest network request is the one you don't have to make". However if the dataset was much larger, creating API queries in RTKQ would be a good approach.
+Looking at the size of the dataset, it's only 12 items, which means filtering on the client-side will be quicker than utilising the API-level filters: "the fastest network request is the one you don't have to make". However if the dataset was much larger, creating API queries in RTKQ would be a good approach. This should be relatively straight forward given the endpoint definition in the `createApi` call in the slice as it can hook directly into the filter and pagination logic already in place.
+
+Storing the filters state in store means we can separate the filter and product table components meaning we don't have to worry about prop drilling and re-renders.
+
+### Improvements
+
+To turn this into a fully fledged product, we need to consider full user journey from logging in to viewing and filtering products and then selecting one or more to purchase, which then leads into a checkout flow of some kind. In the context of this coding task it is probably overkill to add such journeys, but the overaching aim cannot be ignored: find a product to purchase. To that end, improving the ability to find and filter products by adding more fields to apply filters to, fuzzy search on the product name to make it easier to find matches, and different ways of visualising more products could be considered as improvements we could add.
+
+Further estimates:
+
+- extra filter fields:
+  Given it took roughly 25 minutes to add each filter in the journal we can assume 30 minutes per filter for un-complex filter requirements. Given the price filter required a range, we can add an additional 15 minutes from the journal, so round that up to 1 hour per 'complex' filter.
+  Remaining fields we could filter on:
+
+  - vendor (simple)
+  - option_value (simple)
+  - price range (complex)
+  - subscription price (simple)
+  - subscription price range (complex)
+
+  This gives us a rough estimate of 3:30 to add extra filtering.
+
+- fuzzy search:
+  Rather than re-invent the wheel, we'd probably want to use something like fuse on the client side or an API for the search if it can be performant enough. Given the current implementation currently relies on client-side filtering, it's probably worth using fuse for this, and so probably worth allowing an hour to add and configure.
+
+- product visualisation improvements:
+  This would be worth consulting with a UX expert before embarking on, but given the products are simply React components, any changes shouldn't be too difficult to implement. Mui components are very composable and can be customised relatively simply. To switch out the table for a product grid (for example) should only take an hour or less to do.
 
 ## Journal
 
@@ -25,7 +55,7 @@ Looking at the full size dataset, it's only 12 items, which means filtering on t
   Finished adding scenarios to the feature file, had to do a bit more curl to understand how the API filtering works.
   Next I'll set up the dev environment, add typescript and prettier etc
 
-  nb: had to use `npm i --legacy-peer-deps` to get typescript installed with react-scripts
+  nb: had to use `npm i --legacy-peer-deps` to get typescript installed with react-scripts, which
 
 - 19:38
   While waiting for things to install I'm thinking about the best way of hooking up the API to the app. I think redux toolkit query will be a good fit. It'll give us caching and store integration for the results, not to mention hooks to use with the filters.
@@ -114,3 +144,8 @@ Looking at the full size dataset, it's only 12 items, which means filtering on t
 
 - 14:03
   Added function to apply subscription discount
+
+- 14:10
+  Final check of scenarios
+  All pass
+  Time so far: 4:40
