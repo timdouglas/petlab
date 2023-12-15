@@ -1,4 +1,9 @@
-import { applySearchFilter, applyTagFilter } from '~/logic/filters';
+import {
+  applyPriceFilter,
+  applySearchFilter,
+  applySubscriptionFilter,
+  applyTagFilter,
+} from '~/logic/filters';
 import { Product } from '~/logic/slices/products';
 
 describe('filters', () => {
@@ -30,7 +35,7 @@ describe('filters', () => {
       option_value: '2',
       sku: '2',
       price: 2,
-      subscription: true,
+      subscription: false,
       subscription_discount: 0,
     },
   ];
@@ -70,6 +75,37 @@ describe('filters', () => {
     tests.forEach(({ search, product, result }) => {
       it(`searches for [${search.join(',')}]`, () => {
         expect(applyTagFilter(product, search)).toBe(result);
+      });
+    });
+  });
+
+  describe('applyPriceFilter', () => {
+    const tests: Array<{ search: number; product: Product; result: boolean }> =
+      [
+        { search: 1, product: products[0], result: true },
+        { search: 2, product: products[1], result: true },
+        { search: 3, product: products[0], result: false },
+      ];
+
+    tests.forEach(({ search, product, result }) => {
+      it(`searches for ${search}`, () => {
+        expect(applyPriceFilter(product, search)).toBe(result);
+      });
+    });
+  });
+
+  describe('applySubscriptionFilter', () => {
+    const tests: Array<{ search: boolean; product: Product; result: boolean }> =
+      [
+        { search: true, product: products[0], result: true },
+        { search: false, product: products[1], result: true },
+        { search: false, product: products[0], result: false },
+        { search: true, product: products[1], result: false },
+      ];
+
+    tests.forEach(({ search, product, result }) => {
+      it(`searches for ${search}`, () => {
+        expect(applySubscriptionFilter(product, search)).toBe(result);
       });
     });
   });

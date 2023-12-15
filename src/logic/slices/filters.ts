@@ -5,14 +5,14 @@ export type FilterState = {
   search: string;
   tags: string[];
   price: number;
-  subscription: boolean;
+  subscription: null | boolean;
 };
 
 export const initialState: FilterState = {
   search: '',
   tags: [],
   price: -1,
-  subscription: false,
+  subscription: null,
 };
 
 export const filterSlice = createSlice({
@@ -57,6 +57,7 @@ export const selectSubscription = (state: RootState) =>
 export const selectFiltersEnabled = (state: RootState) =>
   state.filters.search.length > 0 ||
   state.filters.tags.length > 0 ||
-  state.filters.price > -1;
+  state.filters.price > -1 ||
+  state.filters.subscription !== null;
 
 export default filterSlice.reducer;

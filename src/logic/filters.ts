@@ -17,9 +17,25 @@ export const applyTagFilter = (
   return tags.filter((tag) => lcSearch.includes(tag.toLowerCase())).length > 0;
 };
 
+export const applyPriceFilter = ({ price }: Product, search: number) =>
+  price === search;
+
+export const applySubscriptionFilter = (
+  { subscription }: Product,
+  search: boolean
+) => subscription === search;
+
 export const applyFilter = (products: Product[], filters: FilterState) =>
   products.filter(
     (product) =>
       (filters.search ? applySearchFilter(product, filters.search) : true) &&
-      (filters.tags.length > 0 ? applyTagFilter(product, filters.tags) : true)
+      (filters.tags.length > 0
+        ? applyTagFilter(product, filters.tags)
+        : true) &&
+      (filters.price && filters.price !== -1
+        ? applyPriceFilter(product, filters.price)
+        : true) &&
+      (filters.subscription !== null
+        ? applySubscriptionFilter(product, filters.subscription)
+        : true)
   );
